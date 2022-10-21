@@ -37,16 +37,18 @@ class EnableCommand extends Command
         $vendorPublicPath = public_path('vendor/');
         $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
 
-        if (! $filesystem->isDirectory("{$vendorPublicPath}/nova-cached")) {
-            $filesystem->makeDirectory("{$vendorPublicPath}/nova-cached");
+        if (! $filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
+            $filesystem->makeDirectory("{$novaVendorPath}/public-cached");
 
-            $filesystem->copyDirectory("{$vendorPublicPath}/nova", "{$vendorPublicPath}/nova-cached");
-            $filesystem->copy(__DIR__.'/stubs/gitignore.stub', "{$vendorPublicPath}/nova-cached/.gitignore");
+            $filesystem->copyDirectory("{$novaVendorPath}/public", "{$novaVendorPath}/public-cached");
+            $filesystem->copy(__DIR__.'/stubs/gitignore.stub', "{$novaVendorPath}/public-cached/.gitignore");
+        }
+
+        if (! $filesystem->isFile("{$novaVendorPath}/webpack.mix.js")) {
+            $filesystem->copy("{$novaVendorPath}/webpack.mix.js.dist", "{$novaVendorPath}/webpack.mix.js");
         }
 
         $this->executeCommand('npm set progress=false && npm ci', $novaVendorPath);
-
-        $filesystem->copy($novaVendorPath.'/webpack.mix.js.dist', $novaVendorPath.'/webpack.mix.js');
 
         $this->executeCommand('npm set progress=false && npm run dev', $novaVendorPath);
 

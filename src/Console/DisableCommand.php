@@ -4,6 +4,7 @@ namespace NovaKit\NovaDevTool\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\PackageManifest;
 
 class DisableCommand extends Command
 {
@@ -29,10 +30,12 @@ class DisableCommand extends Command
     public function handle()
     {
         $filesystem = new Filesystem();
+        $manifest = $this->laravel->make(PackageManifest::class);
 
         $vendorPublicPath = public_path('vendor/');
+        $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
 
-        if (! $filesystem->isDirectory("{$vendorPublicPath}/nova-cached")) {
+        if (! $filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
             return Command::SUCCESS;
         }
 
@@ -40,8 +43,8 @@ class DisableCommand extends Command
             $filesystem->deleteDirectory("{$vendorPublicPath}/nova");
         }
 
-        $filesystem->delete("{$vendorPublicPath}/nova-cached/.gitignore");
-        $filesystem->moveDirectory("{$vendorPublicPath}/nova-cached", "{$vendorPublicPath}/nova");
+        $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
+        $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$vendorPublicPath}/nova");
 
         return Command::SUCCESS;
     }
