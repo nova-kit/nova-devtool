@@ -39,12 +39,14 @@ class DisableCommand extends Command
             return Command::SUCCESS;
         }
 
-        if ($filesystem->isDirectory("{$vendorPublicPath}/nova")) {
-            $filesystem->deleteDirectory("{$vendorPublicPath}/nova");
+        if ($filesystem->isDirectory("{$novaVendorPath}/public")) {
+            $filesystem->deleteDirectory("{$novaVendorPath}/public");
         }
 
         $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
-        $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$vendorPublicPath}/nova");
+        $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
+
+        $this->call('vendor:publish', ['--tag' => 'nova-assets', '--force' => true]);
 
         return Command::SUCCESS;
     }
