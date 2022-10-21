@@ -16,6 +16,7 @@ class LaravelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\EnableCommand::class,
+                Console\DisableCommand::class,
             ]);
         }
     }

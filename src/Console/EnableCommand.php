@@ -50,7 +50,7 @@ class EnableCommand extends Command
 
         $this->executeCommand('npm set progress=false && npm run dev', $novaVendorPath);
 
-        $this->callSilent('vendor:publish', ['--tag' => 'nova-assets']);
+        $this->call('vendor:publish', ['--tag' => 'nova-assets', '--force' => true]);
 
         return Command::SUCCESS;
     }
