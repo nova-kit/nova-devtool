@@ -1,0 +1,26 @@
+preset: package
+
+namespace: NovaKit\NovaDevTool
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: NovaKit\NovaDevTool\Console
+
+model:
+  namespace: NovaKit\NovaDevTool\Models
+
+provider:
+  namespace: NovaKit\NovaDevTool
+
+testing:
+  namespace: NovaKit\NovaDevTool\Tests
