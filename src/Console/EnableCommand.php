@@ -33,8 +33,6 @@ class EnableCommand extends Command
     {
         $filesystem = new Filesystem();
         $manifest = $this->laravel->make(PackageManifest::class);
-
-        $vendorPublicPath = public_path('vendor/');
         $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
 
         if (! $filesystem->isDirectory("{$novaVendorPath}/public-cached")) {

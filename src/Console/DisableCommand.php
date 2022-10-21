@@ -31,20 +31,16 @@ class DisableCommand extends Command
     {
         $filesystem = new Filesystem();
         $manifest = $this->laravel->make(PackageManifest::class);
-
-        $vendorPublicPath = public_path('vendor/');
         $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
 
-        if (! $filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
-            return Command::SUCCESS;
-        }
+        if ($filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
+            if ($filesystem->isDirectory("{$novaVendorPath}/public")) {
+                $filesystem->deleteDirectory("{$novaVendorPath}/public");
+            }
 
-        if ($filesystem->isDirectory("{$novaVendorPath}/public")) {
-            $filesystem->deleteDirectory("{$novaVendorPath}/public");
+            $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
+            $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
         }
-
-        $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
-        $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
 
         $this->call('vendor:publish', ['--tag' => 'nova-assets', '--force' => true]);
 
