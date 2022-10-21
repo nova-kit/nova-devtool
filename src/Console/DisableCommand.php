@@ -3,11 +3,14 @@
 namespace NovaKit\NovaDevTool\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest;
 
 class DisableCommand extends Command
 {
+    use ConfirmableTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -29,6 +32,10 @@ class DisableCommand extends Command
      */
     public function handle()
     {
+        if (! $this->confirmToProceed()) {
+            return Command::FAILURE;
+        }
+
         $filesystem = new Filesystem();
         $manifest = $this->laravel->make(PackageManifest::class);
         $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
@@ -39,7 +46,8 @@ class DisableCommand extends Command
             }
 
             $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
-            $filesystem->moveDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
+            $filesystem->copyDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
+            $filesystem->deleteDirectory("{$novaVendorPath}/public-cached");
         }
 
         $this->call('vendor:publish', ['--tag' => 'nova-assets', '--force' => true]);

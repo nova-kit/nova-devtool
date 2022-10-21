@@ -3,12 +3,14 @@
 namespace NovaKit\NovaDevTool\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest;
 
 class EnableCommand extends Command
 {
-    use Concerns\InteractsWithProcess;
+    use Concerns\InteractsWithProcess,
+        ConfirmableTrait;
 
     /**
      * The name and signature of the console command.
@@ -31,24 +33,23 @@ class EnableCommand extends Command
      */
     public function handle()
     {
+        if (! $this->confirmToProceed()) {
+            return 1;
+        }
+
         $filesystem = new Filesystem();
         $manifest = $this->laravel->make(PackageManifest::class);
         $novaVendorPath = $manifest->vendorPath.'/laravel/nova';
 
-        if (! $filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
-            $filesystem->makeDirectory("{$novaVendorPath}/public-cached");
+        if ($filesystem->isDirectory("{$novaVendorPath}/public-cached")) {
+            if ($filesystem->isDirectory("{$novaVendorPath}/public")) {
+                $filesystem->deleteDirectory("{$novaVendorPath}/public");
+            }
 
-            $filesystem->copyDirectory("{$novaVendorPath}/public", "{$novaVendorPath}/public-cached");
-            $filesystem->copy(__DIR__.'/stubs/gitignore.stub', "{$novaVendorPath}/public-cached/.gitignore");
+            $filesystem->delete("{$novaVendorPath}/public-cached/.gitignore");
+            $filesystem->copyDirectory("{$novaVendorPath}/public-cached", "{$novaVendorPath}/public");
+            $filesystem->deleteDirectory("{$novaVendorPath}/public-cached");
         }
-
-        if (! $filesystem->isFile("{$novaVendorPath}/webpack.mix.js")) {
-            $filesystem->copy("{$novaVendorPath}/webpack.mix.js.dist", "{$novaVendorPath}/webpack.mix.js");
-        }
-
-        $this->executeCommand('npm set progress=false && npm ci', $novaVendorPath);
-
-        $this->executeCommand('npm set progress=false && npm run dev', $novaVendorPath);
 
         $this->call('vendor:publish', ['--tag' => 'nova-assets', '--force' => true]);
 
