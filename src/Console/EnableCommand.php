@@ -34,7 +34,7 @@ class EnableCommand extends Command
     public function handle()
     {
         if (! $this->confirmToProceed()) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $filesystem = new Filesystem();
