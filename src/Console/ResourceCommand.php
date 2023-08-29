@@ -2,6 +2,8 @@
 
 namespace NovaKit\NovaDevTool\Console;
 
+use Symfony\Component\Console\Input\InputOption;
+
 class ResourceCommand extends GeneratorCommand
 {
     /**
