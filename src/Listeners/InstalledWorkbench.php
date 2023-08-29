@@ -48,6 +48,15 @@ class InstalledWorkbench
             components: $event->components,
             workingPath: $workingDirectory,
         ))->handle(
+            $workingDirectory.DIRECTORY_SEPARATOR.'BaseResource.stub',
+            Workbench::path('app/Nova/Resource.php')
+        );
+
+        (new GeneratesFile(
+            filesystem: $this->files,
+            components: $event->components,
+            workingPath: $workingDirectory,
+        ))->handle(
             $workingDirectory.DIRECTORY_SEPARATOR.'UserResource.stub',
             Workbench::path('app/Nova/User.php')
         );
