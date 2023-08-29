@@ -26,6 +26,8 @@ class InstallingWorkbench
 
     /**
      * Handle the event.
+     *
+     * @return void
      */
     public function handle(InstallStarted $event)
     {

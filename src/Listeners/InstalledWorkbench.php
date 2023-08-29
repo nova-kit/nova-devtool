@@ -27,6 +27,8 @@ class InstalledWorkbench
 
     /**
      * Handle the event.
+     *
+     * @return void
      */
     public function handle(InstallEnded $event)
     {
@@ -38,7 +40,7 @@ class InstalledWorkbench
             workingPath: $workingDirectory,
         ))->handle([
             Workbench::path('app/Nova'),
-            Workbench::path('app/Providers')
+            Workbench::path('app/Providers'),
         ]);
 
         (new GeneratesFile(
