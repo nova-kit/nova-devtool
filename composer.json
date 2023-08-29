@@ -2,7 +2,11 @@
     "name": "nova-kit/nova-devtool",
     "description": "Devtool for Laravel Nova Development",
     "type": "library",
-    "keywords": ["laravel", "laravel-nova", "dev"],
+    "keywords": [
+        "laravel",
+        "laravel-nova",
+        "dev"
+    ],
     "license": "MIT",
     "authors": [
         {
