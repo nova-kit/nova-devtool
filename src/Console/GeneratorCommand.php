@@ -13,7 +13,7 @@ abstract class GeneratorCommand extends Generator
     public function getPresetStorage(Preset $preset): ?string
     {
         return $preset->is('laravel')
-            ? $preset->getCustomStubPath()
+            ? $preset->basePath().'/nova'
             : $this->getDefaultPresetStorage($preset);
     }
 
