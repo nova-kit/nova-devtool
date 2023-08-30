@@ -27,10 +27,11 @@
         "composer-runtime-api": "^2.2",
         "fakerphp/faker": "^1.21",
         "laravel/nova": "^4.0",
-        "orchestra/workbench": "^0.2.4"
+        "orchestra/workbench": "^0.2.5"
     },
     "require-dev": {
         "nunomaduro/larastan": "^1.0.1 || ^2.0",
+        "orchestra/canvas-core": "8.x-dev",
         "orchestra/testbench": "^6.35 || ^7.29 || ^8.9"
     },
     "repositories": [

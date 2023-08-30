@@ -50,7 +50,7 @@ class InstalledWorkbench
             components: $event->components,
             workingPath: $workingDirectory,
         ))->handle(
-            $workingDirectory.DIRECTORY_SEPARATOR.'BaseResource.stub',
+            $workingDirectory.DIRECTORY_SEPARATOR.'base-resource.stub',
             Workbench::path('app/Nova/Resource.php')
         );
 

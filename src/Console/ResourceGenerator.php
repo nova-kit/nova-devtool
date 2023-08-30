@@ -2,30 +2,26 @@
 
 namespace NovaKit\NovaDevTool\Console;
 
+use NovaKit\NovaDevTool\Processors\GeneratesResourceCode;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class ResourceCommand extends GeneratorCommand
+#[AsCommand(name: 'nova:resource', description: 'Create a new resource class')]
+class ResourceGenerator extends GeneratorCommand
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected $name = 'nova:resource';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Create a new resource class';
-
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Resource';
+    protected string $type = 'Resource';
+
+    /**
+     * Generator processor.
+     *
+     * @var class-string<\Orchestra\Canvas\Core\GeneratesCode>
+     */
+    protected string $processor = GeneratesResourceCode::class;
 
     /**
      * Get the stub file name for the generator.

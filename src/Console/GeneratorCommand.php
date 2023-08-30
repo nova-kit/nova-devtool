@@ -2,26 +2,26 @@
 
 namespace NovaKit\NovaDevTool\Console;
 
-use Orchestra\Canvas\Core\Commands\Generator;
+use Orchestra\Canvas\Commands\Generator;
 use Orchestra\Canvas\Core\Presets\Preset;
 
-class GeneratorCommand extends Generator
+abstract class GeneratorCommand extends Generator
 {
     /**
-     * Get the stub storage.
+     * Get the stub storage for the preset.
      */
     public function getPresetStorage(Preset $preset): ?string
     {
-        return $preset->hasCustomStubPath()
+        return $preset->is('laravel')
             ? $preset->getCustomStubPath()
-            : __DIR__.'/../../stubs';
+            : $this->getDefaultPresetStorage($preset);
     }
 
     /**
-     * Get the stub file for the generator.
+     * Get the default stub storage for the preset.
      */
-    public function getStubFile(): string
+    public function getDefaultPresetStorage(Preset $preset): string
     {
-        return $this->getStubFileFromPresetStorage($this->preset, $this->getStubFileName());
+        return __DIR__.'/../../stubs';
     }
 }
