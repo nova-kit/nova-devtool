@@ -1,6 +1,6 @@
 <?php
 
-namespace Workbench\App\Nova;
+namespace {{ namespace }};
 
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\PendingBatch;
