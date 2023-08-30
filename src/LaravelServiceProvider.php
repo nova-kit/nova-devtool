@@ -5,7 +5,7 @@ namespace NovaKit\NovaDevTool;
 use Composer\InstalledVersions;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Canvas\Core\Presets\Preset;
+use Orchestra\Canvas\Core\Presets\Package as Preset;
 use Orchestra\Workbench\Events\InstallEnded;
 use Orchestra\Workbench\Events\InstallStarted;
 
