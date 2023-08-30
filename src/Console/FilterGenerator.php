@@ -7,15 +7,15 @@ use Orchestra\Canvas\Core\GeneratesCode;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'nova:action', description: 'Create a new action class')]
-class ActionGenerator extends GeneratorCommand
+#[AsCommand(name: 'nova:filter', description: 'Create a new filter class')]
+class FilterGenerator extends GeneratorCommand
 {
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected string $type = 'Action';
+    protected string $type = 'Filter';
 
     /**
      * Generator processor.
@@ -29,13 +29,13 @@ class ActionGenerator extends GeneratorCommand
      */
     public function getStubFileName(): string
     {
-        $extension = $this->option('queued') ? 'queued.stub' : 'stub';
-
-        if ($this->option('destructive')) {
-            return "destructive-action.{$extension}";
+        if ($this->option('boolean')) {
+            return 'boolean-filter.stub';
+        } elseif ($this->option('date')) {
+            return 'date-filter.stub';
         }
 
-        return "action.{$extension}";
+        return 'filter.stub';
     }
 
     /**
@@ -43,7 +43,7 @@ class ActionGenerator extends GeneratorCommand
      */
     public function getDefaultNamespace(string $rootNamespace): string
     {
-        return $rootNamespace.'\Nova\Actions';
+        return $rootNamespace.'\Nova\Filters';
     }
 
     /**
@@ -64,8 +64,8 @@ class ActionGenerator extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['destructive', null, InputOption::VALUE_NONE, 'Indicate that the action deletes / destroys resources'],
-            ['queued', null, InputOption::VALUE_NONE, 'Indicates the action should be queued'],
+            ['boolean', null, InputOption::VALUE_NONE, 'Indicates if the generated filter should be a boolean filter'],
+            ['date', null, InputOption::VALUE_NONE, 'Indicates if the generated filter should be a date filter'],
         ];
     }
 }
