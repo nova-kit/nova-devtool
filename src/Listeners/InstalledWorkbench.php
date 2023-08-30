@@ -4,7 +4,6 @@ namespace NovaKit\NovaDevTool\Listeners;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use Orchestra\Testbench\Foundation\Console\Actions\DeleteFiles;
 use Orchestra\Testbench\Foundation\Console\Actions\EnsureDirectoryExists;
 use Orchestra\Testbench\Foundation\Console\Actions\GeneratesFile;
 use Orchestra\Workbench\Events\InstallEnded;
