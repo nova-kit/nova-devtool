@@ -2,18 +2,19 @@
 
 namespace NovaKit\NovaDevTool\Console;
 
+use Orchestra\Canvas\Commands\Generator;
 use Orchestra\Canvas\Core\GeneratesCode;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'nova:lens', description: 'Create a new lens class')]
-class LensGenerator extends GeneratorCommand
+#[AsCommand(name: 'nova:dashboard', description: 'Create a new dashboard')]
+class DashboardGenerator extends GeneratorCommand
 {
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected string $type = 'Lens';
+    protected string $type = 'Dashboard';
 
     /**
      * Generator processor.
@@ -27,7 +28,11 @@ class LensGenerator extends GeneratorCommand
      */
     public function getStubFileName(): string
     {
-        return 'lens.stub';
+        if ($this->generatorName() === 'Main') {
+            return 'main-dashboard.stub';
+        }
+
+        return 'dashboard.stub';
     }
 
     /**
@@ -35,7 +40,7 @@ class LensGenerator extends GeneratorCommand
      */
     public function getDefaultNamespace(string $rootNamespace): string
     {
-        return $rootNamespace.'\Nova\Lens';
+        return $rootNamespace.'\Nova\Dashboards';
     }
 
     /**

@@ -14,7 +14,7 @@ awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/C
 awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/Console/stubs/date-filter.stub > stubs/date-filter.stub
 
 awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/Console/stubs/dashboard.stub > stubs/dashboard.stub
-awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/Console/stubs/main-dashboard.stub > stubs/main-dashboard.stub
+awk '{sub(/namespace App/,"namespace Workbench\\App")}1' vendor/laravel/nova/src/Console/stubs/main-dashboard.stub > stubs/main-dashboard.stub
 
 awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/Console/stubs/partition.stub > stubs/partition.stub
 awk '{sub(/{{ namespace }}/,"Workbench\\App\\Nova")}1' vendor/laravel/nova/src/Console/stubs/progress.stub > stubs/progress.stub

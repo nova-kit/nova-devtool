@@ -25,6 +25,7 @@ class LaravelServiceProvider extends ServiceProvider
             ]);
 
             Preset::commands([
+                Console\DashboardGenerator::class,
                 Console\LensGenerator::class,
                 Console\ResourceGenerator::class,
             ]);
