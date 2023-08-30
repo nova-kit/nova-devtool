@@ -3,6 +3,7 @@
 namespace NovaKit\NovaDevTool\Listeners;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 use Orchestra\Testbench\Foundation\Console\Actions\EnsureDirectoryExists;
 use Orchestra\Testbench\Foundation\Console\Actions\GeneratesFile;
 use Orchestra\Workbench\Events\InstallEnded;
@@ -48,6 +49,15 @@ class InstalledWorkbench
             components: $event->components,
             workingPath: $workingDirectory,
         ))->handle(
+            $workingDirectory.DIRECTORY_SEPARATOR.'base-resource.stub',
+            Workbench::path('app/Nova/Resource.php')
+        );
+
+        (new GeneratesFile(
+            filesystem: $this->files,
+            components: $event->components,
+            workingPath: $workingDirectory,
+        ))->handle(
             $workingDirectory.DIRECTORY_SEPARATOR.'UserResource.stub',
             Workbench::path('app/Nova/User.php')
         );
@@ -69,5 +79,14 @@ class InstalledWorkbench
             $workingDirectory.DIRECTORY_SEPARATOR.'DatabaseSeeder.stub',
             Workbench::path('database/seeders/DatabaseSeeder.php')
         );
+
+        Collection::make([
+            Workbench::path('app/.gitkeep'),
+            Workbench::path('app/Nova/.gitkeep'),
+            Workbench::path('app/Providers/.gitkeep'),
+            Workbench::path('database/seeders/.gitkeep'),
+        ])->each(function ($file) {
+            $this->files->delete($file);
+        });
     }
 }
