@@ -44,9 +44,11 @@ class ResourceGenerator extends GeneratorCommand
      */
     public function generatorOptions(): array
     {
+        $name = $this->generatorName();
+
         return [
-            'name' => $this->generatorName(),
-            'model' => $this->option('model'),
+            'name' => $name,
+            'model' => $this->option('model') ?? $name,
         ];
     }
 
