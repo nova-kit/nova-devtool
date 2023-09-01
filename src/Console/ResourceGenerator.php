@@ -2,7 +2,7 @@
 
 namespace NovaKit\NovaDevTool\Console;
 
-use NovaKit\NovaDevTool\Processors\GeneratesResourceCode;
+use Orchestra\Canvas\Core\GeneratesCodeWithEloquent;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -21,7 +21,7 @@ class ResourceGenerator extends GeneratorCommand
      *
      * @var class-string<\Orchestra\Canvas\Core\GeneratesCode>
      */
-    protected string $processor = GeneratesResourceCode::class;
+    protected string $processor = GeneratesCodeWithEloquent::class;
 
     /**
      * Get the stub file name for the generator.
