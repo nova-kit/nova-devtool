@@ -8,7 +8,9 @@
 /.gitignore export-ignore
 /canvas.yaml export-ignore
 /phpstan.neon.dist export-ignore
+/pint.json export-ignore
 /phpunit.xml export-ignore
+/sync.sh export-ignore
 /testbench.yaml export-ignore
 /LICENSE export-ignore
 /CHANGELOG-*.md export-ignore
