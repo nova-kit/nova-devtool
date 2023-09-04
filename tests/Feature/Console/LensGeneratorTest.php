@@ -2,8 +2,8 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Canvas\Core\Testing\TestCase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 
 class LensGeneratorTest extends TestCase
 {

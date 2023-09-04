@@ -33,7 +33,6 @@ class FilterGeneratorTest extends TestCase
         ], 'app/Nova/Filters/Post.php');
     }
 
-
     /** @test */
     public function it_can_generate_filter_file_with_boolean_type()
     {
