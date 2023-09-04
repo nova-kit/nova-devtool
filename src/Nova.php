@@ -43,4 +43,14 @@ class Nova extends \Laravel\Nova\Nova
             collect($resources)->sort()->all()
         );
     }
+
+    /**
+     * Register all of the resource classes within Workbench.
+     *
+     * @return void
+     */
+    public static function resourcesInWorkbench()
+    {
+        static::resourcesIn(Workbench::path('app/Nova'));
+    }
 }
