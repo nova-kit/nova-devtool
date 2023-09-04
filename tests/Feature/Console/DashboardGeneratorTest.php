@@ -32,7 +32,6 @@ class DashboardGeneratorTest extends TestCase
         ], 'app/Nova/Dashboards/Post.php');
     }
 
-
     /** @test */
     public function it_can_generate_the_main_dashboard_file()
     {
