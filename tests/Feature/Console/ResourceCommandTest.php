@@ -2,13 +2,8 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-use Orchestra\Canvas\Core\Testing\TestCase;
-use Orchestra\Testbench\Concerns\WithWorkbench;
-
-class ResourceGeneratorTest extends TestCase
+class ResourceCommandTest extends TestCase
 {
-    use WithWorkbench;
-
     /**
      * Stubs files.
      *
@@ -21,7 +16,7 @@ class ResourceGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_resource_file()
     {
-        $this->artisan('nova:resource', ['name' => 'Post'])
+        $this->artisan('nova:resource', ['name' => 'Post', '--preset' => 'laravel'])
             ->assertExitCode(0);
 
         $this->assertFileContains([

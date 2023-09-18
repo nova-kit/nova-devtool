@@ -2,13 +2,8 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-use Orchestra\Canvas\Core\Testing\TestCase;
-use Orchestra\Testbench\Concerns\WithWorkbench;
-
 class DashboardGeneratorTest extends TestCase
 {
-    use WithWorkbench;
-
     /**
      * Stubs files.
      *

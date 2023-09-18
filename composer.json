@@ -28,7 +28,7 @@
         "composer-runtime-api": "^2.2",
         "fakerphp/faker": "^1.21",
         "laravel/nova": "^4.0",
-        "orchestra/workbench": "^0.2.5"
+        "orchestra/workbench": "dev-illuminate-console as 0.2.x-dev"
     },
     "require-dev": {
         "nunomaduro/larastan": "^1.0.1 || ^2.0",
