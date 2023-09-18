@@ -2,7 +2,7 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-class FilterGeneratorTest extends TestCase
+class FilterCommandTest extends TestCase
 {
     /**
      * Stubs files.
@@ -16,8 +16,8 @@ class FilterGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_filter_file()
     {
-        $this->artisan('nova:filter', ['name' => 'Post'])
-            ->assertExitCode(0);
+        $this->artisan('nova:filter', ['name' => 'Post', '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Filters;',
@@ -31,8 +31,8 @@ class FilterGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_filter_file_with_boolean_type()
     {
-        $this->artisan('nova:filter', ['name' => 'Post', '--boolean' => true])
-            ->assertExitCode(0);
+        $this->artisan('nova:filter', ['name' => 'Post', '--boolean' => true, '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Filters;',
@@ -45,8 +45,8 @@ class FilterGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_filter_file_with_date_type()
     {
-        $this->artisan('nova:filter', ['name' => 'Post', '--date' => true])
-            ->assertExitCode(0);
+        $this->artisan('nova:filter', ['name' => 'Post', '--date' => true, '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Filters;',

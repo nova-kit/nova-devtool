@@ -7,6 +7,9 @@ use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Console\ActionCommand;
 use Laravel\Nova\Console\BaseResourceCommand;
+use Laravel\Nova\Console\DashboardCommand;
+use Laravel\Nova\Console\FilterCommand;
+use Laravel\Nova\Console\LensCommand;
 use Laravel\Nova\Console\ResourceCommand;
 use Orchestra\Workbench\Events\InstallEnded;
 use Orchestra\Workbench\Events\InstallStarted;
@@ -23,6 +26,9 @@ class LaravelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->registerActionCommand();
             $this->registerBaseResourceCommand();
+            $this->registerDashboardCommand();
+            $this->registerFilterCommand();
+            $this->registerLensCommand();
             $this->registerResourceCommand();
 
             $this->commands([
@@ -30,9 +36,9 @@ class LaravelServiceProvider extends ServiceProvider
                 Console\DisableCommand::class,
                 Console\ActionCommand::class,
                 Console\BaseResourceCommand::class,
-                // Console\DashboardGenerator::class,
-                // Console\FilterGenerator::class,
-                // Console\LensGenerator::class,
+                Console\DashboardCommand::class,
+                Console\FilterCommand::class,
+                Console\LensCommand::class,
                 Console\ResourceCommand::class,
             ]);
         }
@@ -55,10 +61,46 @@ class LaravelServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    protected function registerDashboardCommand()
+    {
+        $this->app->singleton(DashboardCommand::class, function ($app) {
+            return new Console\DashboardCommand($app['files']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
     protected function registerBaseResourceCommand()
     {
         $this->app->singleton(BaseResourceCommand::class, function ($app) {
             return new Console\BaseResourceCommand($app['files']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerFilterCommand()
+    {
+        $this->app->singleton(FilterCommand::class, function ($app) {
+            return new Console\FilterCommand($app['files']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerLensCommand()
+    {
+        $this->app->singleton(LensCommand::class, function ($app) {
+            return new Console\LensCommand($app['files']);
         });
     }
 

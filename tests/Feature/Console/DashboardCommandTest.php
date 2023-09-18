@@ -2,7 +2,7 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-class DashboardGeneratorTest extends TestCase
+class DashboardCommandTest extends TestCase
 {
     /**
      * Stubs files.
@@ -17,8 +17,8 @@ class DashboardGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_dashboard_file()
     {
-        $this->artisan('nova:dashboard', ['name' => 'Post'])
-            ->assertExitCode(0);
+        $this->artisan('nova:dashboard', ['name' => 'Post', '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Dashboards;',
@@ -30,8 +30,8 @@ class DashboardGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_the_main_dashboard_file()
     {
-        $this->artisan('nova:dashboard', ['name' => 'Main'])
-            ->assertExitCode(0);
+        $this->artisan('nova:dashboard', ['name' => 'Main', '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Dashboards;',
