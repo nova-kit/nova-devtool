@@ -2,7 +2,7 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-class ActionGeneratorTest extends TestCase
+class ActionCommandTest extends TestCase
 {
     /**
      * Stubs files.
@@ -16,8 +16,8 @@ class ActionGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_action_file()
     {
-        $this->artisan('nova:action', ['name' => 'Sleep'])
-            ->assertExitCode(0);
+        $this->artisan('nova:action', ['name' => 'Sleep', '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Actions;',
@@ -32,8 +32,8 @@ class ActionGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_queued_action_file()
     {
-        $this->artisan('nova:action', ['name' => 'Sleep', '--queued' => true])
-            ->assertExitCode(0);
+        $this->artisan('nova:action', ['name' => 'Sleep', '--queued' => true, '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Actions;',
@@ -53,8 +53,8 @@ class ActionGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_destructive_action_file()
     {
-        $this->artisan('nova:action', ['name' => 'Sleep', '--destructive' => true])
-            ->assertExitCode(0);
+        $this->artisan('nova:action', ['name' => 'Sleep', '--destructive' => true, '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Actions;',
@@ -66,8 +66,8 @@ class ActionGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_queued_destructive_action_file()
     {
-        $this->artisan('nova:action', ['name' => 'Sleep', '--queued' => true, '--destructive' => true])
-            ->assertExitCode(0);
+        $this->artisan('nova:action', ['name' => 'Sleep', '--queued' => true, '--destructive' => true, '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Actions;',

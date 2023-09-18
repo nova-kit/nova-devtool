@@ -7,8 +7,11 @@ use Orchestra\Canvas\Core\Concerns\CodeGenerator;
 use Orchestra\Canvas\Core\Concerns\UsesGeneratorOverrides;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'nova:resource', description: 'Create a new resource class')]
-class ResourceCommand extends \Laravel\Nova\Console\ResourceCommand
+/**
+ * @see https://github.com/laravel/nova/blob/4.0/src/Console/BaseResourceCommand.php
+ */
+#[AsCommand(name: 'nova:base-resource', description: 'Create a new base resource class')]
+class BaseResourceCommand extends \Laravel\Nova\Console\BaseResourceCommand
 {
     use CodeGenerator;
     use UsesGeneratorOverrides;
@@ -35,39 +38,6 @@ class ResourceCommand extends \Laravel\Nova\Console\ResourceCommand
     public function handle()
     {
         return $this->generateCode() ? self::SUCCESS : self::FAILURE;
-    }
-
-    /**
-     * Run after code successfully generated.
-     */
-    public function afterCodeHasBeenGenerated(string $className, string $path): void
-    {
-        $this->callSilent('nova:base-resource', [
-            'name' => 'Resource',
-            '--preset' => $this->option('preset'),
-        ]);
-    }
-
-    /**
-     * Get the base resource class.
-     *
-     * @return class-string
-     */
-    protected function getBaseResourceClass()
-    {
-        $rootNamespace = $this->generatorPreset()->rootNamespace();
-
-        return "{$rootNamespace}Nova\Resource";
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @return string
-     */
-    protected function getModelNamespace()
-    {
-        return $this->generatorPreset()->modelNamespace();
     }
 
     /**

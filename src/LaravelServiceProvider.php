@@ -5,6 +5,8 @@ namespace NovaKit\NovaDevTool;
 use Composer\InstalledVersions;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Console\ActionCommand;
+use Laravel\Nova\Console\BaseResourceCommand;
 use Laravel\Nova\Console\ResourceCommand;
 use Orchestra\Workbench\Events\InstallEnded;
 use Orchestra\Workbench\Events\InstallStarted;
@@ -19,18 +21,45 @@ class LaravelServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->app->runningInConsole()) {
+            $this->registerActionCommand();
+            $this->registerBaseResourceCommand();
             $this->registerResourceCommand();
 
             $this->commands([
                 Console\EnableCommand::class,
                 Console\DisableCommand::class,
-                // Console\ActionGenerator::class,
+                Console\ActionCommand::class,
+                Console\BaseResourceCommand::class,
                 // Console\DashboardGenerator::class,
                 // Console\FilterGenerator::class,
                 // Console\LensGenerator::class,
                 Console\ResourceCommand::class,
             ]);
         }
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerActionCommand()
+    {
+        $this->app->singleton(ActionCommand::class, function ($app) {
+            return new Console\ActionCommand($app['files']);
+        });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerBaseResourceCommand()
+    {
+        $this->app->singleton(BaseResourceCommand::class, function ($app) {
+            return new Console\BaseResourceCommand($app['files']);
+        });
     }
 
     /**
