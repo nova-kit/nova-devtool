@@ -2,13 +2,8 @@
 
 namespace NovaKit\NovaDevTool\Tests\Feature\Console;
 
-use Orchestra\Canvas\Core\Testing\TestCase;
-use Orchestra\Testbench\Concerns\WithWorkbench;
-
-class LensGeneratorTest extends TestCase
+class LensCommandTest extends TestCase
 {
-    use WithWorkbench;
-
     /**
      * Stubs files.
      *
@@ -21,8 +16,8 @@ class LensGeneratorTest extends TestCase
     /** @test */
     public function it_can_generate_lens_file()
     {
-        $this->artisan('nova:lens', ['name' => 'Post'])
-            ->assertExitCode(0);
+        $this->artisan('nova:lens', ['name' => 'Post', '--preset' => 'laravel'])
+            ->assertSuccessful();
 
         $this->assertFileContains([
             'namespace App\Nova\Lenses;',
