@@ -9,8 +9,8 @@ use Illuminate\Foundation\PackageManifest;
 
 class EnableCommand extends Command
 {
-    use Concerns\InteractsWithProcess,
-        ConfirmableTrait;
+    use Concerns\InteractsWithProcess;
+    use ConfirmableTrait;
 
     /**
      * The name and signature of the console command.
