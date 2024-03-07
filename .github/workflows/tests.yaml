@@ -114,7 +114,6 @@ jobs:
           - 8.2
         dependencies:
           - "highest"
-          - "lowest"
         laravel:
           - "9.x"
         experimental:
